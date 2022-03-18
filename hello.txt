@@ -2,3 +2,4 @@ Hi
 Hello
 da update fix loi quan trong
 nguoi khac da sua
+sua trong VS code
