@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+//thu muc public chua cac file: images, stylesheet
 app.use(express.static('public'))
 
 
