@@ -6,6 +6,31 @@ app.set('view engine','hbs')
 //products la mot array: rong
 var products = []
 
+app.get('/delete',(req,res)=>{
+    const id = req.query.id
+    //1. xoa product khoi array
+    let productToDeleteIndex
+    for(i=0;i<products.length;i++){
+        if(products[i].id== id){
+            productToDeleteIndex = i
+            break
+        }
+    }
+    //xoa vi tri thu i, xoa 1 item, 
+    products.splice(i,1)
+    //2. Save array vao file
+    let fileContent = ''
+    let singleItem  =''
+    for(i=0;i<products.length;i++){
+        //tao ra dong: '1/IPhone/220' hoac '2/SamsungPhone/444'
+        singleItem = products[i].id + '/' + products[i].name + '/' + products[i].price + '\n'
+        fileContent += singleItem
+    }
+    fs.writeFileSync('productDB.txt',fileContent)
+    //huong nguoi dung den trang hom
+    res.redirect('/viewproduct')
+})
+
 app.get('/viewproduct',(req,res)=>{   
     //cho 1 so product vao array tren
     //products.push({'id':1,'name': 'Iphone','price':20})
