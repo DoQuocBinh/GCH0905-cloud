@@ -9,7 +9,7 @@ var products = []
 app.get('/delete',(req,res)=>{
     const id = req.query.id
     //1. xoa product khoi array
-    let productToDeleteIndex
+    let productToDeleteIndex =-1
     for(i=0;i<products.length;i++){
         if(products[i].id== id){
             productToDeleteIndex = i
@@ -17,7 +17,7 @@ app.get('/delete',(req,res)=>{
         }
     }
     //xoa vi tri thu i, xoa 1 item, 
-    products.splice(i,1)
+    products.splice(productToDeleteIndex,1)
     //2. Save array vao file
     let fileContent = ''
     let singleItem  =''
