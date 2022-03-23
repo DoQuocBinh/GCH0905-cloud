@@ -19,14 +19,7 @@ app.get('/delete',(req,res)=>{
     //xoa vi tri thu i, xoa 1 item, 
     products.splice(productToDeleteIndex,1)
     //2. Save array vao file
-    let fileContent = ''
-    let singleItem  =''
-    for(i=0;i<products.length;i++){
-        //tao ra dong: '1/IPhone/220' hoac '2/SamsungPhone/444'
-        singleItem = products[i].id + '/' + products[i].name + '/' + products[i].price + '\n'
-        fileContent += singleItem
-    }
-    fs.writeFileSync('productDB.txt',fileContent)
+    saveArray2File()
     //huong nguoi dung den trang hom
     res.redirect('/viewproduct')
 })
@@ -51,6 +44,17 @@ app.get('/',(req,res)=>{
 const PORT = process.env.PORT || 5000
 app.listen(PORT)
 console.log("Server is running: " + PORT)
+
+function saveArray2File() {
+    let fileContent = ''
+    let singleItem = ''
+    for (i = 0; i < products.length; i++) {
+        //tao ra dong: '1/IPhone/220' hoac '2/SamsungPhone/444'
+        singleItem = products[i].id + '/' + products[i].name + '/' + products[i].price + '\n'
+        fileContent += singleItem
+    }
+    fs.writeFileSync('productDB.txt', fileContent)
+}
 
 function readFileToArray() {
     const content = fs.readFileSync('productDB.txt', "utf-8")
