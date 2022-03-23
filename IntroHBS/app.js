@@ -3,8 +3,32 @@ const app = express()
 const fs = require('fs')
 
 app.set('view engine','hbs')
+
+//gui du lieu tu Form den app.js
+app.use(express.urlencoded({extended:true}))
+
 //products la mot array: rong
 var products = []
+
+app.post('/new',(req,res)=>{
+    //1. Lay du lieu tu nguoi dung
+    const id = req.body.txtId
+    const name = req.body.txtName
+    const price = req.body.txtPrice
+    //2. load du lieu tu file len
+    readFileToArray()
+    //3. cap nhat array
+    products.push({'id':id,'name': name,'price':price})
+    //4. save xuong file
+    saveArray2File()
+    //5. chuyen huong nguoi dung den home
+    res.redirect('/')
+
+})
+
+app.get('/new',(req,res)=>{
+    res.render('insert')
+})
 
 app.get('/delete',(req,res)=>{
     const id = req.query.id
@@ -44,6 +68,8 @@ app.get('/',(req,res)=>{
 const PORT = process.env.PORT || 5000
 app.listen(PORT)
 console.log("Server is running: " + PORT)
+
+
 
 function saveArray2File() {
     let fileContent = ''
