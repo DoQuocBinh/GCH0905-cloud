@@ -10,6 +10,19 @@ app.use(express.urlencoded({extended:true}))
 //products la mot array: rong
 var products = []
 
+app.post('/search',(req,res)=>{
+    //1. lay thong tin user search
+    const search = req.body.txtSearch
+    //2. lay thong tin tu file len mang
+    readFileToArray()
+    //3. search tren array
+    const searchResult = products.filter((p)=>{
+        return p.name.includes(search)
+    })
+    //4. hien thi ket qua tim kiem qua trang showProducts.hbs
+    res.render('showProducts',{'products':searchResult})
+})
+
 app.post('/new',(req,res)=>{
     //1. Lay du lieu tu nguoi dung
     const id = req.body.txtId
