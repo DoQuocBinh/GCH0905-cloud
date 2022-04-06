@@ -14,7 +14,20 @@ app.get('/new',(req,res)=>{
     res.render('newProduct')
 })
 
-app.post('/newProduct',(req,res)=>{
+app.get('/viewAll', (req,res)=>{
+    const query =  Product.find({},(err,result)=>{
+        if(err)
+            console.log(err)
+        else
+            result.forEach(element => {
+            console.log(element.name)
+            });
+            res.render('allProduct',{'products':result})
+    })
+    
+})
+
+app.post('/newProduct',async (req,res)=>{
     const name = req.body.txtName
     const price  = req.body.txtPrice
     const picURL  = req.body.txtPic
@@ -23,12 +36,8 @@ app.post('/newProduct',(req,res)=>{
     mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
     var db = mongoose.connection;
     const productEntity = new Product({'name':name,'price':price,'picURL':picURL})
-    productEntity.save((err)=>{
-        if(err)
-            res.end(err)
-        else
-            res.end('Produce saved!')
-    })
+    await productEntity.save()
+    res.redirect('/')
 
     
 })
