@@ -13,20 +13,41 @@ app.get('/',(req,res)=>{
 app.get('/new',(req,res)=>{
     res.render('newProduct')
 })
+app.post('/search',async (req,res)=>{
+    const searchText = req.body.txtSearch
+    const query = await  Product.find({'name':searchText})
+    res.render('allProduct',{'products':query})
+})
+app.get('/delete',async (req,res)=>{
+    const id = req.query.id
+    await Product.deleteOne({'_id':id})
+    res.redirect('/viewAll')
+})
 
-app.get('/viewAll', (req,res)=>{
-   
+app.get('/viewAll', async (req,res)=>{  
+    var page = req.query.page
 
-    const query =  Product.find({},(err,result)=>{
-        if(err)
-            console.log(err)
-        else{
-            // result.forEach(element => {
-            // console.log(element.name)
-            // });
-            res.render('allProduct',{'products':result})
-        }            
-    })
+    if(page ==1){
+        const query = await  Product.find().limit(5)
+        res.render('allProduct',{'products':query})
+    }else if(page==2){
+        //bo qua 5 ban ghi dau tien, lay 5 ban ghi tiep theo
+        const query = await  Product.find().skip(5).limit(5)
+        res.render('allProduct',{'products':query})
+    }else{
+        const query = await  Product.find()
+        res.render('allProduct',{'products':query})
+    }
+    // const query =  Product.find({},(err,result)=>{
+    //     if(err)
+    //         console.log(err)
+    //     else{
+    //         // result.forEach(element => {
+    //         // console.log(element.name)
+    //         // });
+    //         res.render('allProduct',{'products':result})
+    //     }            
+    // })
     
 })
 
