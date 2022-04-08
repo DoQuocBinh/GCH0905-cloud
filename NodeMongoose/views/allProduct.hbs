@@ -14,7 +14,14 @@
     </form>
     <ul>
         {{#each products}}
-            <li>  {{name}} - {{price}}   <a href="/delete?id={{_id}}" onclick="return confirm('Are you sure?')">Delete</a></li>
+            <li>  {{name}} - {{price}}   <a href="/delete?id={{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
+            <div>
+                <img src="{{picURL}}" width="150" height="100"/>
+            </div>
+            <div>
+                <a href="/edit?id={{_id}}">Edit</a>
+            </div>
+            </li>
         {{/each}}
     </ul>
     <a href="/viewAll?page=1">Page 1</a> | <a href="/viewAll?page=2">Page 2</a> |

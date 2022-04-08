@@ -6,6 +6,31 @@ const app = express()
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
 
+app.post('/edit',async (req,res)=>{
+    const id = req.body.id
+    const name = req.body.txtName
+    const price = req.body.txtPrice
+    const picURL = req.body.txtPic
+    
+    //await Product.updateOne({'_id':id},{$set: {'name':name,'price':price,'picURL':picURL}})
+    var prod = await Product.findById(id)
+    prod.name=name
+    prod.price = price
+    prod.picURL = picURL
+    prod.save((err)=>{
+         if(!err)
+            console.log("Ok")
+            res.redirect("/viewAll")
+     })    
+})
+
+app.get('/edit',async (req,res)=>{
+    const id = req.query.id
+    const prod = await Product.findById(id)
+
+    res.render('edit',{'product':prod})
+})
+
 app.get('/',(req,res)=>{
     res.render('home')
 })
