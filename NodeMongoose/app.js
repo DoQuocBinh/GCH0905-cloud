@@ -20,7 +20,7 @@ app.post('/edit',async (req,res)=>{
     prod.save((err)=>{
          if(!err)
             console.log("Ok")
-            res.redirect("/viewAll")
+        res.redirect("/viewAll")
      })    
 })
 
