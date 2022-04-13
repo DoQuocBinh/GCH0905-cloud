@@ -9,10 +9,13 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.post('/search',async (req,res)=>{
-    const authorId = req.body.txtAuthor
+    const authorName = req.body.txtAuthor
     //muon hien thi them thong tin tu bang Author
-    const query = await Story.find({'author':authorId}).populate('author')
-    res.render('searchResult',{'stories':query}) 
+    //const query = await Story.find({'author':authorId}).populate('author')
+    const query = await Story.find().populate('author')
+    console.log(query)
+    const query2 = query.filter(s=>s.author.name.includes(authorName))
+    res.render('searchResult',{'stories':query2}) 
 
 })
 
