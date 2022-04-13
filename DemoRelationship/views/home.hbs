@@ -12,5 +12,18 @@
         <input type="text" name="txtAuthorName">
         <input type="submit" value="New Author">
     </form>
+    <hr>
+    New Story
+    <hr>
+    <form action="newStory" method="post">
+        Author<select name="author">
+            {{#each author}}
+                <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+        </select>
+        <br>
+        Story title <input type="text" name="txtStory">
+        <input type="submit" value="NewStory">
+    </form>
 </body>
 </html>
