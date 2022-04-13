@@ -8,6 +8,20 @@
 </head>
 <body>
     <h1>Welcome Home</h1>
+    <hr>
+    Search Book by Author
+       <form action="search" method="post">
+           Author id: <input type="text" name="txtAuthor">
+           <input type="submit" value="Search">
+       </form>
+    <hr>
+    <ul>
+         {{#each storyQuery}}
+            <li>{{title}} - {{author.name}}</li>
+        {{/each}}
+    </ul>
+   
+    <hr>
     <form action="newAuthor" method="post">
         <input type="text" name="txtAuthorName">
         <input type="submit" value="New Author">

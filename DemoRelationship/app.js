@@ -7,9 +7,19 @@ const app = express()
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
 
+
+app.post('/search',async (req,res)=>{
+    const authorId = req.body.txtAuthor
+    //muon hien thi them thong tin tu bang Author
+    const query = await Story.find({'author':authorId}).populate('author')
+    res.render('searchResult',{'stories':query}) 
+
+})
+
 app.get('/',async (req,res)=>{
     const query = await Author.find()
-    res.render('home',{'author':query})
+    const storyQuery = await Story.find().populate('author')
+    res.render('home',{'author':query,'storyQuery':storyQuery})
 })
 
 app.post('/newStory',async (req,res)=>{
@@ -19,6 +29,7 @@ app.post('/newStory',async (req,res)=>{
     var story = new Story({'title':title,author:authorId})
     await story.save()
     console.log(story._id)
+
     res.redirect('/')
 })
 
