@@ -7,7 +7,7 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome Home</h1>
+    <h1 style="color: red;">Welcome Home</h1>
     <hr>
     Search Book by Author
        <form action="search" method="post">
@@ -24,6 +24,7 @@
     <hr>
     <form action="newAuthor" method="post">
         <input type="text" name="txtAuthorName">
+        <span style="color: red;">{{errorMsg}}</span>
         <input type="submit" value="New Author">
     </form>
     <hr>

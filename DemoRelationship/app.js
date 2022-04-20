@@ -38,6 +38,11 @@ app.post('/newStory',async (req,res)=>{
 
 app.post('/newAuthor', async (req,res)=>{
     const name= req.body.txtAuthorName
+    if(name.length > 5){
+        const errorMsg = "Ten qua dai!"
+        res.render('home',{'errorMsg': errorMsg})
+        return;
+    }
     let newAuthor = new Author({'name':name})
     await newAuthor.save()
     res.redirect('/')
