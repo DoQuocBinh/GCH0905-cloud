@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Product management!</h1>
+    <form action="newproduct" method="post">
+        Name <input type="text" name="txtName">
+        <span>{{error.name}}</span>
+        <br>
+        Image URL: <input type="text" name="txtPic">      
+        <span> {{error.pic}}</span><br>
+        <input type="submit" value="Inser Product">
+    </form>
+    <hr>
+    <ul>
+        {{#each prods}}
+            <li>{{name}}
+                <br>
+                <img src="{{picURL}}" width="70" height="70">
+            </li>
+        {{/each}}
+    </ul>
+    
+</body>
+</html>
